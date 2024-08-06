@@ -1,6 +1,5 @@
 package com.learning_spring.banking_app.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
