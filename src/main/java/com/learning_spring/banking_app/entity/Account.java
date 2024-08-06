@@ -21,7 +21,7 @@ public class Account {
     @Column(name="account_holder_name")
     private String accountHolderName;
 
-    @Column(name="account_holder_locaiton")
+    @Column(name="account_holder_location")
     private String accountHolderLocation;
 
     @Column(name="account_number")
