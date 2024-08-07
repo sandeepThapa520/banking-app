@@ -21,4 +21,21 @@ public class AccountService {
 
         return AccountMapper.mapToAccountDto(saveAccount);
     }
+
+    //fetching accounts by id
+    public AccountDto getAccount(Long id) {
+        Account account = accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account does not exists"));
+        return AccountMapper.mapToAccountDto(account);
+    }
+
+    //depositing to account
+    public AccountDto accountDeposite(Long id, double amount) {
+        Account account = accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account does not exists"));
+        double total_balance = account.getBalance() + amount;
+        account.setBalance(total_balance);
+        Account depositedAccount = accountRepository.save(account);
+        return AccountMapper.mapToAccountDto(depositedAccount);
+    }
+
+
 }
