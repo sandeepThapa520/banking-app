@@ -27,7 +27,7 @@ public class Account {
     @Column(name="account_number")
     private Long accountNumber;
 
-    @Column(name="account_balance")
+    @Column(name="balance")
     private Double balance;
 
 }

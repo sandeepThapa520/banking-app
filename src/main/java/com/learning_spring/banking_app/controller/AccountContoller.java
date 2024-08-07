@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController  // used for restful web service
@@ -24,7 +25,7 @@ public class AccountContoller {
     }
 
     //get account rest api
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<AccountDto> getAccount(@PathVariable Long id){
         AccountDto accountDto = accountService.getAccount(id);
         return ResponseEntity.ok(accountDto);
@@ -32,11 +33,30 @@ public class AccountContoller {
 
     //account deposite rest api
     @PutMapping("/deposite/{id}")
-    public ResponseEntity<AccountDto> updateAccount(@PathVariable Long id, @RequestBody Map<String, Double> request){
+    public ResponseEntity<AccountDto> accountDeposit(@PathVariable Long id, @RequestBody Map<String, Double> request){
         double amount = request.get("amount");
         AccountDto accountDto = accountService.accountDeposite(id, amount);
         return ResponseEntity.ok(accountDto);
-
     }
 
+    //withdraw from the account
+    @PutMapping("/withdraw/{id}")
+    public ResponseEntity<AccountDto> withdraw(@PathVariable Long id, @RequestBody Map<String, Double> request){
+        Double withdrawAmount = request.get("amount");
+        AccountDto accountDto = accountService.accountWithdrawal(id, withdrawAmount);
+
+        return ResponseEntity.ok(accountDto);
+    }
+    @GetMapping
+    public ResponseEntity<List<AccountDto>> getAllAccounts(){
+        List<AccountDto> accounts = accountService.getAllAccounts();
+        return ResponseEntity.ok(accounts);
+    }
+
+    //delete account rest api
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deleteAccountById(@PathVariable Long id) {
+        accountService.deleteAccount(id);
+        return ResponseEntity.ok("account is deleted sucessfully");
+    }
 }
